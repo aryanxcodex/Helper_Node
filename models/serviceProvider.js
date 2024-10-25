@@ -31,7 +31,7 @@ const serviceProviderSchema = new mongoose.Schema({
   },
   serviceLocation: {
     type: String,
-    required: true,
+    required: false,
   },
   experience: {
     type: Number,
