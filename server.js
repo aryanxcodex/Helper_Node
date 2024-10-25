@@ -1,21 +1,33 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import Authentication from "./models/Authentication.js";
-import ServiceSeeker from "./models/serviceSeeker.js";
-import ServiceProvider from "./models/serviceProvider.js";
-import Contractor from "./models/contractor.js";
-import ServicePosting from "./models/servicePostings.js";
+// import ServiceSeeker from "./models/serviceSeeker.js";
+// import ServiceProvider from "./models/serviceProvider.js";
+// import Contractor from "./models/contractor.js";
+// import ServicePosting from "./models/servicePostings.js";
+import userRoutes from "./routes/userRoutes.js";
+import cookieParser from "cookie-parser";
 import { connectDB } from "./config/db.js";
 
 dotenv.config();
+
+// const corsOptions = {
+//   origin: "http://localhost:5173",
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   credentials: true,
+//   optionsSuccessStatus: 204,
+// };
+
 const app = express();
 connectDB();
 
-app.use(express.json());
+app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("Hello, World! This is your Express backend.");
-});
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use("/api/u", userRoutes);
 
 // app.use("/api", userRoutes);
 

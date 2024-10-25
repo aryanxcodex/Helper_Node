@@ -15,6 +15,7 @@ const authenticationSchema = new mongoose.Schema({
       },
       message: "Phone number must be a 10-digit number",
     },
+    unique: true,
   },
   createdAt: {
     type: Date,

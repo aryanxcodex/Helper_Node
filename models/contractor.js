@@ -8,7 +8,12 @@ const contractorSchema = new mongoose.Schema({
   },
   fullname: {
     type: String,
-    required: true,
+    required: false,
+    trim: true,
+  },
+  companyName: {
+    type: String,
+    required: false,
     trim: true,
   },
   type: {
@@ -20,11 +25,6 @@ const contractorSchema = new mongoose.Schema({
     type: String,
     required: false,
     enum: ["male", "female", "others"],
-  },
-  organisationDescription: {
-    type: String,
-    trim: true,
-    default: "",
   },
   address: {
     type: String,

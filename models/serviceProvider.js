@@ -44,7 +44,7 @@ const serviceProviderSchema = new mongoose.Schema({
   },
   hourlyRate: {
     type: Number,
-    required: true,
+    required: false,
     min: 0,
   },
   address: {
@@ -54,10 +54,10 @@ const serviceProviderSchema = new mongoose.Schema({
   },
   geolocation: {
     type: {
-      lat: { type: Number, required: true },
-      lng: { type: Number, required: true },
+      lat: { type: Number, required: false },
+      lng: { type: Number, required: false },
     },
-    required: true,
+    required: false,
   },
   phoneNumber: {
     type: String,
@@ -68,6 +68,7 @@ const serviceProviderSchema = new mongoose.Schema({
       },
       message: "Phone number must be a 10-digit number",
     },
+    unique: true,
   },
   createdAt: {
     type: Date,
