@@ -7,7 +7,7 @@ import Authentication from "./models/Authentication.js";
 // import Contractor from "./models/contractor.js";
 // import ServicePosting from "./models/servicePostings.js";
 import userRoutes from "./routes/userRoutes.js";
-import jobRoutes from "./routes/jobRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./config/db.js";
 
@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/user", userRoutes);
-app.use("/api/job", jobRoutes);
+app.use("/api/service", serviceRoutes);
 
 // app.use("/api", userRoutes);
 

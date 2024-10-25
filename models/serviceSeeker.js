@@ -29,6 +29,10 @@ const serviceSeekerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  feedBackSummary: {
+    type: String,
+    trim: true,
+  },
   phoneNumber: {
     type: String,
     required: true,

@@ -156,3 +156,42 @@ export const sendOTP = async (req, res) => {
       .json({ message: "Error generating OTP.", error: error.message });
   }
 };
+
+export const getProfile = async (req, res) => {
+  const { authID } = req.params;
+
+  if (!authID) {
+    return res.status(400).json({ message: "authID is required" });
+  }
+
+  try {
+    const authRecord = await Authentication.findById(authID);
+    if (!authRecord) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    let userProfile;
+
+    // Fetch the user profile based on user type
+    if (authRecord.userType === "ServiceSeeker") {
+      userProfile = await ServiceSeeker.findOne({ authID });
+    } else if (authRecord.userType === "ServiceProvider") {
+      userProfile = await ServiceProvider.findOne({ authID });
+    } else if (authRecord.userType === "Contractor") {
+      userProfile = await Contractor.findOne({ authID });
+    } else {
+      return res.status(400).json({ message: "Invalid user type" });
+    }
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User profile not found" });
+    }
+
+    res.status(200).json({
+      message: "Profile retrieved successfully",
+      userProfile,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};

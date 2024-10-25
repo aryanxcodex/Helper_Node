@@ -57,6 +57,10 @@ const serviceProviderSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  feedBackSummary: {
+    type: String,
+    trim: true,
+  },
   geolocation: {
     type: {
       lat: { type: Number, required: false },

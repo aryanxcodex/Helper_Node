@@ -31,6 +31,10 @@ const contractorSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  feedBackSummary: {
+    type: String,
+    trim: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
