@@ -2,7 +2,7 @@ import Authentication from "../models/Authentication.js";
 import ServiceSeeker from "../models/serviceSeeker.js";
 import ServiceProvider from "../models/serviceProvider.js";
 import Contractor from "../models/contractor.js";
-import ServicePosting from "../models/servicePostings.js"; 
+import ServicePosting from "../models/servicePostings.js";
 
 export const createServicePosting = async (req, res) => {
   const {
@@ -33,8 +33,8 @@ export const createServicePosting = async (req, res) => {
       proposedPayment,
       workDuration,
       serviceStatus,
-      applicantIDs, 
-      selectedProviderIDs, 
+      applicantIDs,
+      selectedProviderIDs,
       pplRequired,
       priority,
     });
@@ -48,4 +48,9 @@ export const createServicePosting = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
+};
+
+export const searchServicePosting = async (req, res) => {
+
+  
 };

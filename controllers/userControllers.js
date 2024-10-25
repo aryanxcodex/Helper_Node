@@ -11,8 +11,8 @@ export const registerUser = async (req, res) => {
 
   try {
     const auth = new Authentication({
-      userType,
-      phoneNumber,
+      userType: body.userType,
+      phoneNumber: body.phoneNumber,
     });
 
     const authRecord = await auth.save();
