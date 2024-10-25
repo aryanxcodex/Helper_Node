@@ -19,7 +19,7 @@ export const registerUser = async (req, res) => {
 
     let userProfile;
 
-    if (userType === "ServiceSeeker") {
+    if (body.userType === "ServiceSeeker") {
       userProfile = new ServiceSeeker({
         authID: authRecord._id,
         fullname: body.fullname,
@@ -28,7 +28,7 @@ export const registerUser = async (req, res) => {
         homeAddress: body.homeAddress,
         phoneNumber: body.phoneNumber,
       });
-    } else if (userType === "ServiceProvider") {
+    } else if (body.userType === "ServiceProvider") {
       userProfile = new ServiceProvider({
         authID: authRecord._id,
         fullname: body.fullname,
@@ -45,7 +45,7 @@ export const registerUser = async (req, res) => {
         skills: body.skills,
         phoneNumber: body.phoneNumber,
       });
-    } else if (userType === "Contractor") {
+    } else if (body.userType === "Contractor") {
       userProfile = new Contractor({
         authID: authRecord._id,
         fullname: body.fullname,
@@ -61,7 +61,7 @@ export const registerUser = async (req, res) => {
     const savedUserProfile = await userProfile.save();
 
     res.status(201).json({
-      message: `${userType} registered successfully`,
+      message: `${body.userType} registered successfully`,
       userProfile: savedUserProfile,
       authID: authRecord._id,
     });
@@ -142,7 +142,7 @@ export const sendOTP = async (req, res) => {
         console.error("Error Sending OTP", error.message);
       });
 
-    res.status(200).json({ message: "OTP generated and sent to your phone." }); 
+    res.status(200).json({ message: "OTP generated and sent to your phone." });
   } catch (error) {
     res
       .status(500)
