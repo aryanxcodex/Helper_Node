@@ -3,6 +3,7 @@ import ServiceSeeker from "../models/serviceSeeker.js";
 import ServiceProvider from "../models/serviceProvider.js";
 import Contractor from "../models/contractor.js";
 import dotenv from "dotenv";
+import axios from "axios";
 
 dotenv.config();
 
@@ -112,7 +113,13 @@ export const loginUser = async (req, res) => {
 };
 
 export const sendOTP = async (req, res) => {
-  const { phoneNumber } = req.body;
+  const { userType, phoneNumber } = req.body;
+
+  if (!userType || !phoneNumber) {
+    return res
+      .status(400)
+      .json({ message: "userType and phoneNumber are required" });
+  }
 
   const otp = Math.floor(100000 + Math.random() * 900000);
 
@@ -121,6 +128,7 @@ export const sendOTP = async (req, res) => {
 
     if (!authRecord) {
       authRecord = new Authentication({
+        userType,
         phoneNumber,
         otp,
       });
