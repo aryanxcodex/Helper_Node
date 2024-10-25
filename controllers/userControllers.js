@@ -195,3 +195,42 @@ export const getProfile = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+export const postFeedback = async (req, res) => {
+  const {
+    userID,
+    forUserID,
+    feedbackText,
+    serviceID,
+    rating,
+    summarizedKeypoints,
+  } = req.body;
+
+  if (!userID || !forUserID || !feedbackText || !rating) {
+    return res
+      .status(400)
+      .json({
+        message: "userID, forUserID, feedbackText, and rating are required.",
+      });
+  }
+
+  try {
+    const feedback = new Feedback({
+      userID,
+      forUserID,
+      feedbackText,
+      serviceID,
+      rating,
+      summarizedKeypoints,
+    });
+
+    const savedFeedback = await feedback.save();
+
+    res.status(201).json({
+      message: "Feedback posted successfully",
+      feedback: savedFeedback,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
