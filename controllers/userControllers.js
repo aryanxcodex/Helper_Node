@@ -2,6 +2,9 @@ import Authentication from "../models/Authentication.js";
 import ServiceSeeker from "../models/serviceSeeker.js";
 import ServiceProvider from "../models/serviceProvider.js";
 import Contractor from "../models/contractor.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const registerUser = async (req, res) => {
   const body = req.body;
@@ -106,5 +109,43 @@ export const loginUser = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
+export const sendOTP = async (req, res) => {
+  const { phoneNumber } = req.body;
+
+  const otp = Math.floor(100000 + Math.random() * 900000);
+
+  try {
+    let authRecord = await Authentication.findOne({ phoneNumber });
+
+    if (!authRecord) {
+      authRecord = new Authentication({
+        phoneNumber,
+        otp,
+      });
+    } else {
+      authRecord.otp = otp;
+    }
+
+    await authRecord.save();
+
+    axios
+      .get(
+        `https://2factor.in/API/V1/${process.env.OTPCRED}/SMS/+91${phoneNumber}/${otp}/OTP1`
+      )
+      .then((response) => {
+        console.log("OTP sent", response.data);
+      })
+      .catch((error) => {
+        console.error("Error Sending OTP", error.message);
+      });
+
+    res.status(200).json({ message: "OTP generated and sent to your phone." }); 
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error generating OTP.", error: error.message });
   }
 };

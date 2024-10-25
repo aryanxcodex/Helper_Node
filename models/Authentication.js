@@ -17,6 +17,10 @@ const authenticationSchema = new mongoose.Schema({
     },
     unique: true,
   },
+  otp: {
+    type: Number,
+    required: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
