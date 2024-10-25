@@ -17,10 +17,10 @@ const servicePostingSchema = new mongoose.Schema({
   },
   geolocation: {
     type: {
-      lat: { type: Number, required: true },
-      lng: { type: Number, required: true },
+      lat: { type: Number, required: false },
+      lng: { type: Number, required: false },
     },
-    required: true,
+    required: false,
   },
   proposedPayment: {
     type: Number,

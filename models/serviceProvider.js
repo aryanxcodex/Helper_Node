@@ -39,7 +39,7 @@ const serviceProviderSchema = new mongoose.Schema({
     min: 0,
   },
   availability: {
-    type: Number,  //No. of Hours
+    type: Number, //No. of Hours
     required: true,
   },
   hourlyRate: {
@@ -48,6 +48,11 @@ const serviceProviderSchema = new mongoose.Schema({
     min: 0,
   },
   address: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  serviceAddress: {
     type: String,
     required: true,
     trim: true,
