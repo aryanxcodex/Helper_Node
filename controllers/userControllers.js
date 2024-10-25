@@ -11,12 +11,18 @@ export const registerUser = async (req, res) => {
   const body = req.body;
 
   try {
-    const auth = new Authentication({
-      userType: body.userType,
+    let authRecord = await Authentication.findOne({
       phoneNumber: body.phoneNumber,
     });
 
-    const authRecord = await auth.save();
+    if (!authRecord) {
+      authRecord = new Authentication({
+        userType: body.userType,
+        phoneNumber: body.phoneNumber,
+      });
+
+      await authRecord.save();
+    }
 
     let userProfile;
 
@@ -207,11 +213,9 @@ export const postFeedback = async (req, res) => {
   } = req.body;
 
   if (!userID || !forUserID || !feedbackText || !rating) {
-    return res
-      .status(400)
-      .json({
-        message: "userID, forUserID, feedbackText, and rating are required.",
-      });
+    return res.status(400).json({
+      message: "userID, forUserID, feedbackText, and rating are required.",
+    });
   }
 
   try {
