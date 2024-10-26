@@ -14,9 +14,7 @@ export const registerUser = async (req, res) => {
   const latitude = req.body.geolocation.latitude;
   const longitude = req.body.geolocation.longitude;
 
-  const langinit = {
-    
-  }
+  const langinit = {};
 
   try {
     let authRecord = await Authentication.findOne({
@@ -91,9 +89,7 @@ export const loginUser = async (req, res) => {
   const { phoneNumber } = req.body;
 
   if (!phoneNumber) {
-    return res
-      .status(400)
-      .json({ message: "userType and phoneNumber are required" });
+    return res.status(400).json({ message: "phoneNumber are required" });
   }
 
   try {
@@ -135,10 +131,8 @@ export const loginUser = async (req, res) => {
 export const sendOTP = async (req, res) => {
   const { userType, phoneNumber } = req.body;
 
-  if (!userType || !phoneNumber) {
-    return res
-      .status(400)
-      .json({ message: "userType and phoneNumber are required" });
+  if (!phoneNumber) {
+    return res.status(400).json({ message: "phoneNumber is required" });
   }
 
   const otp = Math.floor(100000 + Math.random() * 900000);
