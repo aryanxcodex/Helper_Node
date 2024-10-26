@@ -2,6 +2,7 @@ import Authentication from "../models/Authentication.js";
 import ServiceSeeker from "../models/serviceSeeker.js";
 import ServiceProvider from "../models/serviceProvider.js";
 import Contractor from "../models/contractor.js";
+import Feedback from "../models/Feedback.js";
 import dotenv from "dotenv";
 import axios from "axios";
 
