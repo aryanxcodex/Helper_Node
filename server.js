@@ -10,6 +10,7 @@ import Feedback from "./models/Feedback.js";
 import userRoutes from "./routes/userRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import cookieParser from "cookie-parser";
+import axios from "axios";
 import { connectDB } from "./config/db.js";
 
 dotenv.config();
@@ -31,6 +32,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/user", userRoutes);
 app.use("/api/service", serviceRoutes);
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
+});
 
 // app.use("/api", userRoutes);
 
@@ -38,3 +42,16 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+const callRouteContinuously = async () => {
+  try {
+    const response = await axios.get("http://localhost:3000/");
+    console.log("Response received:", response.data);
+  } catch (error) {
+    console.error("Error calling route:", error.message);
+  } finally {
+    setTimeout(callRouteContinuously, 300000);
+  }
+};
+
+callRouteContinuously();
