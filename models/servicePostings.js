@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const servicePostingSchema = new mongoose.Schema({
   serviceSeekerID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "ServiceSeeker", 
+    ref: "ServiceSeeker",
     required: true,
   },
   serviceType: {
@@ -11,6 +11,11 @@ const servicePostingSchema = new mongoose.Schema({
     required: true,
   },
   serviceDescription: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  address: {
     type: String,
     required: true,
     trim: true,
@@ -63,6 +68,9 @@ const servicePostingSchema = new mongoose.Schema({
   },
 });
 
-const servicePostingModel = mongoose.model("ServicePosting", servicePostingSchema);
+const servicePostingModel = mongoose.model(
+  "ServicePosting",
+  servicePostingSchema
+);
 
 export default servicePostingModel;

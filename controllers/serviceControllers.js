@@ -1,7 +1,6 @@
 import Authentication from "../models/Authentication.js";
 import ServiceSeeker from "../models/serviceSeeker.js";
 import ServiceProvider from "../models/serviceProvider.js";
-import Contractor from "../models/contractor.js";
 import ServicePosting from "../models/servicePostings.js";
 
 export const createServicePosting = async (req, res) => {
@@ -9,7 +8,7 @@ export const createServicePosting = async (req, res) => {
     serviceSeekerID,
     serviceType,
     serviceDescription,
-    geolocation,
+    address,
     proposedPayment,
     workDuration,
     serviceStatus,
@@ -17,6 +16,7 @@ export const createServicePosting = async (req, res) => {
     selectedProviderIDs,
     pplRequired,
     priority,
+    geolocation,
   } = req.body;
 
   try {
@@ -29,14 +29,15 @@ export const createServicePosting = async (req, res) => {
       serviceSeekerID,
       serviceType,
       serviceDescription,
-      geolocation,
       proposedPayment,
       workDuration,
+      address,
       serviceStatus,
       applicantIDs,
       selectedProviderIDs,
       pplRequired,
       priority,
+      geolocation,
     });
 
     const savedServicePosting = await newServicePosting.save();
