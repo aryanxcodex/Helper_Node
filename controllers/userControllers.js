@@ -89,7 +89,7 @@ export const loginUser = async (req, res) => {
   const { phoneNumber } = req.body;
 
   if (!phoneNumber) {
-    return res.status(400).json({ message: "phoneNumber are required" });
+    return res.status(400).json({ message: "phoneNumber is required" });
   }
 
   try {
