@@ -16,7 +16,7 @@ import { connectDB } from "./config/db.js";
 dotenv.config();
 
 const corsOptions = {
-  origin: "https://helperr-app.vercel.app/",
+  origin: "https://helperr-app.vercel.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
