@@ -123,6 +123,7 @@ export const loginUser = async (req, res) => {
 
     res.status(200).json({
       message: `${userType} logged in successfully`,
+      userType,
       userProfile,
       authID: authRecord._id,
     });
