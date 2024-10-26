@@ -19,6 +19,9 @@ export const createServicePosting = async (req, res) => {
     geolocation,
   } = req.body;
 
+  const latitude = geolocation.latitude;
+  const longitude = geolocation.longitude;
+
   try {
     const serviceSeeker = await ServiceSeeker.findById(serviceSeekerID);
     if (!serviceSeeker) {
@@ -37,7 +40,10 @@ export const createServicePosting = async (req, res) => {
       selectedProviderIDs,
       pplRequired,
       priority,
-      geolocation,
+      geolocation: {
+        type: "Point", // Must be 'Point'
+        coordinates: [longitude, latitude], // [longitude, latitude]
+      },
     });
 
     const savedServicePosting = await newServicePosting.save();
@@ -51,7 +57,33 @@ export const createServicePosting = async (req, res) => {
   }
 };
 
-export const searchServicePosting = async (req, res) => {};
+export const searchServicePosting = async (req, res) => {
+  const nearbyProviders = req.nearbyProviders; // Accessing nearby providers from the middleware
+
+  // Extract the provider IDs from nearbyProviders
+  const providerIDs = nearbyProviders.map((provider) => provider.providerID);
+
+  try {
+    // Fetch services where selectedProviderIDs matches any of the nearby provider IDs
+    const services = await ServicePosting.find({
+      selectedProviderIDs: { $in: providerIDs }, // Filter services based on nearby providers
+    });
+
+    // If no services are found
+    if (services.length === 0) {
+      return res.status(404).json({ message: "No nearby services found." });
+    }
+
+    // Return the nearby services
+    res.status(200).json({
+      message: "Nearby services retrieved successfully.",
+      services,
+    });
+  } catch (error) {
+    console.error("Error retrieving services:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
 
 export const applyService = async (req, res) => {
   const { serviceID, serviceProviderID } = req.body;

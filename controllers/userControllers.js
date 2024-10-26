@@ -11,6 +11,9 @@ dotenv.config();
 export const registerUser = async (req, res) => {
   const body = req.body;
 
+  const latitude = req.body.geolocation.latitude;
+  const longitude = req.body.geolocation.longitude;
+
   try {
     let authRecord = await Authentication.findOne({
       phoneNumber: body.phoneNumber,
@@ -47,7 +50,10 @@ export const registerUser = async (req, res) => {
         hourlyRate: body.hourlyRate,
         address: body.homeAddress,
         serviceAddress: body.serviceAddress,
-        geolocation: body.geolocation,
+        geolocation: {
+          type: "Point",
+          coordinates: [longitude, latitude],
+        },
         serviceType: body.serviceType,
         skills: body.skills,
         phoneNumber: body.phoneNumber,

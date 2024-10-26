@@ -63,10 +63,14 @@ const serviceProviderSchema = new mongoose.Schema({
   },
   geolocation: {
     type: {
-      lat: { type: Number, required: false },
-      lng: { type: Number, required: false },
+      type: String,
+      enum: ["Point"],
+      required: true,
     },
-    required: false,
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      required: true,
+    },
   },
   phoneNumber: {
     type: String,
@@ -84,6 +88,8 @@ const serviceProviderSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+serviceProviderSchema.index({ geolocation: "2dsphere" });
 
 const serviceProviderModel = mongoose.model(
   "ServiceProvider",

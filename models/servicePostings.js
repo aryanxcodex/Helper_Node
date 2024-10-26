@@ -22,10 +22,14 @@ const servicePostingSchema = new mongoose.Schema({
   },
   geolocation: {
     type: {
-      lat: { type: Number, required: false },
-      lng: { type: Number, required: false },
+      type: String, 
+      enum: ["Point"], 
+      required: true,
     },
-    required: false,
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      required: true,
+    },
   },
   proposedPayment: {
     type: Number,
@@ -67,6 +71,8 @@ const servicePostingSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+servicePostingSchema.index({ geolocation: "2dsphere" });
 
 const servicePostingModel = mongoose.model(
   "ServicePosting",
