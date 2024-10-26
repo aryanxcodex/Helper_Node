@@ -14,7 +14,13 @@ export const registerUser = async (req, res) => {
   const latitude = req.body.geolocation.latitude;
   const longitude = req.body.geolocation.longitude;
 
-  const langinit = {};
+  const langinits = {
+    Tamil: "ta",
+    Marathi: "mr",
+    English: "en",
+    Telugu: "te",
+    Hindi: "hi",
+  };
 
   try {
     let authRecord = await Authentication.findOne({
@@ -59,6 +65,7 @@ export const registerUser = async (req, res) => {
         serviceType: body.serviceType,
         skills: body.skills,
         phoneNumber: body.phoneNumber,
+        prefferedLanguage: langinits[body.language],
       });
     } else if (body.userType === "Contractor") {
       userProfile = new Contractor({

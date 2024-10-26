@@ -85,7 +85,7 @@ const serviceProviderSchema = new mongoose.Schema({
   },
   prefferedLanguage: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
   createdAt: {
