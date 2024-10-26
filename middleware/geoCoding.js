@@ -7,7 +7,7 @@ export const getCoordinatesMiddleware = async (req, res, next) => {
   const address = req.body.homeAddress || req.body.address;
   const { userType } = req.body;
 
-  if(userType != "ServiceProvider") {
+  if (userType != "ServiceProvider") {
     next();
   }
 

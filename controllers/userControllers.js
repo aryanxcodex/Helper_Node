@@ -14,6 +14,10 @@ export const registerUser = async (req, res) => {
   const latitude = req.body.geolocation.latitude;
   const longitude = req.body.geolocation.longitude;
 
+  const langinit = {
+    
+  }
+
   try {
     let authRecord = await Authentication.findOne({
       phoneNumber: body.phoneNumber,
@@ -84,9 +88,9 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
-  const { userType, phoneNumber } = req.body;
+  const { phoneNumber } = req.body;
 
-  if (!userType || !phoneNumber) {
+  if (!phoneNumber) {
     return res
       .status(400)
       .json({ message: "userType and phoneNumber are required" });
@@ -98,6 +102,8 @@ export const loginUser = async (req, res) => {
     if (!authRecord) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    const userType = authRecord.userType;
 
     let userProfile;
 

@@ -83,6 +83,11 @@ const serviceProviderSchema = new mongoose.Schema({
     },
     unique: true,
   },
+  prefferedLanguage: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

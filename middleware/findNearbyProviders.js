@@ -50,7 +50,6 @@ const findNearbyProviders = async (req, res, next) => {
 
     req.nearbyProviders = nearbyProviders;
 
-
     next();
   } catch (error) {
     console.error("Error finding nearby providers:", error.message);
