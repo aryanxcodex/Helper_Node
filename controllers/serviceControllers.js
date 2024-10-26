@@ -62,7 +62,10 @@ export const applyService = async (req, res) => {
   }
 
   try {
-    const serviceProvider = await ServiceProvider.findById(serviceProviderID);
+    const serviceProvider = await ServiceProvider.findOne({
+      authID: serviceProviderID,
+    });
+
     if (!serviceProvider) {
       return res.status(404).json({ message: "Service provider not found" });
     }
@@ -100,7 +103,10 @@ export const approveServiceProvider = async (req, res) => {
   }
 
   try {
-    const serviceProvider = await ServiceProvider.findById(serviceProviderID);
+    const serviceProvider = await ServiceProvider.findOne({
+      authID: serviceProviderID,
+    });
+
     if (!serviceProvider) {
       return res.status(404).json({ message: "Service provider not found" });
     }

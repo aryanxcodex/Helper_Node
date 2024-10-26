@@ -6,6 +6,7 @@ import Authentication from "./models/Authentication.js";
 // import ServiceProvider from "./models/serviceProvider.js";
 // import Contractor from "./models/contractor.js";
 // import ServicePosting from "./models/servicePostings.js";
+import Feedback from "./models/Feedback.js";
 import userRoutes from "./routes/userRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import cookieParser from "cookie-parser";

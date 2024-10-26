@@ -164,7 +164,7 @@ export const sendOTP = async (req, res) => {
 };
 
 export const getProfile = async (req, res) => {
-  const { authID } = req.params;
+  const { authID } = req.body;
 
   if (!authID) {
     return res.status(400).json({ message: "authID is required" });
