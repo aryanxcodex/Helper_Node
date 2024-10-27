@@ -13,7 +13,7 @@ router
   .route("/postService")
   .post(getCoordinatesMiddleware, createServicePosting);
 router
-  .route("/searchServiceProviders")
+  .route("/search/providers")
   .post(findNearbyProviders, searchServicePosting);
 router.route("/applyService").post(applyService);
 router.route("/approveServiceProvider").post(approveServiceProvider);
